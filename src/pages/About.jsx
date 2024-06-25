@@ -1,5 +1,5 @@
 import React from "react";
-import Metrics from "./Metrics";
+import Metrics from "../components/Metrics";
 
 function About() {
   return (
