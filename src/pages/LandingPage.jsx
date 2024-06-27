@@ -4,6 +4,7 @@ import Why from "../components/Why";
 import Benefits from "../components/Benefits";
 import CTA from "../components/CTA";
 import Testimonials from "../components/Testimonials";
+import Quiz from "./Quiz";
 
 function LandingPage() {
   return (
