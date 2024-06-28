@@ -4,7 +4,6 @@ import Why from "../components/Why";
 import Benefits from "../components/Benefits";
 import CTA from "../components/CTA";
 import Testimonials from "../components/Testimonials";
-import TaskPage from "./TaskPage";
 
 function LandingPage() {
   return (
@@ -14,7 +13,6 @@ function LandingPage() {
       <Benefits />
       <CTA />
       <Testimonials />
-      <TaskPage />
     </div>
   );
 }

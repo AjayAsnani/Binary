@@ -3,6 +3,7 @@ import Home from "../components/Economic/Home";
 import About from "../components/Economic/About";
 import Practices from "../components/Economic/Practices";
 import Efaq from "../components/Economic/Efaq";
+import EconomicResources from "../components/Economic/EconomicResources";
 
 const Economic = () => {
   return (
@@ -11,6 +12,7 @@ const Economic = () => {
       <About />
       <Practices />
       <Efaq />
+      <EconomicResources />
     </div>
   );
 };
