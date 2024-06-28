@@ -1,14 +1,79 @@
-import React from "react";
+// import React from "react";
+// import TaskCard from "../components/TaskCard";
+// import StatsCard from "../components/StatsCard";
+
+// const Tasks = () => {
+//   const tasks = [
+//     {
+//       id: 1,
+//       name: "Plant a tree",
+//       completed: true,
+//       impact: "High",
+//       image: "../../public/plant.jpeg",
+//     },
+//     {
+//       id: 2,
+//       name: "Reduce water usage",
+//       completed: false,
+//       impact: "Medium",
+//       image: "../../public/water.jpeg",
+//     },
+//     {
+//       id: 3,
+//       name: "Reduce water usage",
+//       completed: false,
+//       impact: "Medium",
+//       image: "../../public/events4.jpg",
+//     },
+//   ];
+  
+//   const completedTasks = tasks.filter((task) => task.completed).length;
+//   const remainingTasks = tasks.length - completedTasks;
+ 
+
+//   return (
+//     <div className="p-6 bg-gray-100 min-h-screen">
+//       <div className="mb-6">
+//         <h2 className="text-2xl font-semibold mb-4">Assigned Tasks</h2>
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+//           <StatsCard type="total" count={tasks.length} />
+//           <StatsCard type="completed" count={completedTasks} />
+//           <StatsCard type="remaining" count={remainingTasks} />
+//         </div>
+//       </div>
+
+//       <div className="mb-6">
+//         <h2 className="text-2xl font-semibold mb-4">
+//           Impact Based on Performed Tasks
+//         </h2>
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+//           {tasks.map((task) => (
+//             <TaskCard key={task.id} task={task} />
+//           ))}
+//         </div>
+//       </div>
+
+//     </div>
+//   );
+// };
+
+// export default Tasks;
+import React, { useState } from "react";
 import TaskCard from "../components/TaskCard";
 import StatsCard from "../components/StatsCard";
-import DonationCard from "../components/DonationCard";
+import TaskDialog from "../components/TaskDialog";
 
 const Tasks = () => {
-  const tasks = [
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const [tasks, setTasks] = useState([
     {
       id: 1,
       name: "Plant a tree",
       completed: true,
+      verified: true,
+      coins:200,
       impact: "High",
       image: "../../public/plant.jpeg",
     },
@@ -16,51 +81,45 @@ const Tasks = () => {
       id: 2,
       name: "Reduce water usage",
       completed: false,
+      verified: false,
+      coins:200,
       impact: "Medium",
       image: "../../public/water.jpeg",
     },
-  ];
-
-  const donations = [
     {
-      id: 1,
-      amount: 50,
-      date: "2024-06-20",
-      image: "../../public/Donation.jpeg",
+      id: 3,
+      name: "Reduce water usage",
+      completed: false,
+      impact: "Medium",
+      verified: false,
+      coins:200,
+      image: "../../public/events4.jpg",
     },
-    {
-      id: 2,
-      amount: 30,
-      date: "2024-06-25",
-      image: "../../public/Donation.jpeg",
-    },
-    // Add more donations as needed
-  ];
+  ]);
 
   const completedTasks = tasks.filter((task) => task.completed).length;
   const remainingTasks = tasks.length - completedTasks;
-  const totalDonations = donations.reduce(
-    (acc, donation) => acc + donation.amount,
-    0
-  );
 
+  const handleCardClick = (task) => {
+    if (!task.completed) {
+      setSelectedTask(task);
+      setIsDialogOpen(true);
+    }
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+    setSelectedTask(null);
+  };
+  const markTaskCompleted = () => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === selectedTask.id ? { ...task, completed: true } : task
+    );
+    setTasks(updatedTasks);
+    closeDialog();
+  };
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        Weekly Performance
-      </h1>
-
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold mb-4">
-          Impact Based on Performed Tasks
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
-          ))}
-        </div>
-      </div>
-
       <div className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">Assigned Tasks</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -72,19 +131,18 @@ const Tasks = () => {
 
       <div className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">
-          Donations Made Towards Sustainability
+          Impact Based on Performed Tasks
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {donations.map((donation) => (
-            <DonationCard key={donation.id} donation={donation} />
+          {tasks.map((task) => (
+            <TaskCard key={task.id} task={task} onClick={() => handleCardClick(task)} />
           ))}
         </div>
-        <div className="bg-white rounded-lg shadow-md p-4 mt-4">
-          <p className="text-lg font-bold">
-            Total Donations: ${totalDonations}
-          </p>
-        </div>
       </div>
+
+      {isDialogOpen && (
+        <TaskDialog ask={selectedTask} onClose={closeDialog} onSave={markTaskCompleted} />
+      )}
     </div>
   );
 };

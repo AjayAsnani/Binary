@@ -16,6 +16,9 @@ import Logo from "./Logo";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import LogoutBtn from "./Header/LogoutBtn";
+import Profile from "./Profile";
+import Eventdetails from "./Eventdetails";
+import EditProfile from "./EditProfile";
 
 export {
   Login,
@@ -36,4 +39,7 @@ export {
   Header,
   Footer,
   LogoutBtn,
+  Profile,
+  Eventdetails,
+  EditProfile
 };

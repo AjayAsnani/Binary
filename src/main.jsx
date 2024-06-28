@@ -18,6 +18,9 @@ import {
   Signup,
   Sustainability,
   Tasks,
+  Profile,
+  Eventdetails,
+  EditProfile
 } from "./components/index.js";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
@@ -50,9 +53,9 @@ const router = createBrowserRouter([
       {
         path: "/community",
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Community />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       {
@@ -66,17 +69,17 @@ const router = createBrowserRouter([
       {
         path: "/events",
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Events />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       {
         path: "/tasks",
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Tasks />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       {
@@ -111,6 +114,26 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path:'/profile',
+        element: (
+          // <ProtectedRoute>
+            <Profile />
+          // </ProtectedRoute>
+        )
+      },
+      {
+        path:'/eventdetails',
+        element:(
+          <Eventdetails />
+        )
+      },
+      {
+        path:'/editprofile',
+        element:(
+          <EditProfile />
+        )
+      }
     ],
   },
 ]);
